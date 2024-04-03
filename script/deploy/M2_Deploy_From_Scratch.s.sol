@@ -258,7 +258,6 @@ contract Deployer_M2 is Script, Test {
             address(eigenPodManagerImplementation),
             abi.encodeWithSelector(
                 EigenPodManager.initialize.selector,
-                EIGENPOD_MANAGER_MAX_PODS,
                 IBeaconChainOracle(address(0)),
                 executorMultisig,
                 eigenLayerPauserReg,
@@ -346,7 +345,7 @@ contract Deployer_M2 is Script, Test {
         vm.serializeAddress(deployed_addresses, "eigenLayerPauserReg", address(eigenLayerPauserReg));
         vm.serializeAddress(deployed_addresses, "slasher", address(slasher));
         vm.serializeAddress(deployed_addresses, "slasherImplementation", address(slasherImplementation));
-        vm.serializeAddress(deployed_addresses, "delegation", address(delegation));
+        vm.serializeAddress(deployed_addresses, "delegationManager", address(delegation));
         vm.serializeAddress(deployed_addresses, "delegationImplementation", address(delegationImplementation));
         vm.serializeAddress(deployed_addresses, "avsDirectory", address(avsDirectory));
         vm.serializeAddress(deployed_addresses, "avsDirectoryImplementation", address(avsDirectoryImplementation));
@@ -392,7 +391,7 @@ contract Deployer_M2 is Script, Test {
         string memory finalJson = vm.serializeString(parent_object, parameters, parameters_output);
         // TODO: should output to different file depending on configFile passed to run()
         //       so that we don't override mainnet output by deploying to goerli for eg.
-        vm.writeJson(finalJson, "script/output/M2_from_scratch_deployment_data.json");
+        vm.writeJson(finalJson, "script/output/devnet/M2_from_scratch_deployment_data.json");
     }
 
     function _verifyContractsPointAtOneAnother(
